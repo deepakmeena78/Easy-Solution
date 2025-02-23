@@ -3,6 +3,7 @@ import path from "path";
 import HelpModule from "../../module/Help.module.js";
 import fs from "fs";
 import { fileURLToPath } from "url";  // Import fileURLToPath
+import { validationResult } from "express-validator";
 
 // Manually define __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -15,6 +16,7 @@ export const CreateHelp = async (req, res) => {                               //
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
+
         const { title, description, help_seeker, category, location, pincode, status, help_date } = req.body;
         const gallery = req.files.map(file => file.path);
 
@@ -57,10 +59,10 @@ export const UpdateHelp = async (req, res) => {                                 
             return res.status(400).json({ errors: errors.array() });
         }
         const id = req.params.id;
-        let { title, description, category, location, pincode, help_date, oldImages } = req.body;
+        let { title, description, category, location, pincode, help_date } = req.body;
         let newImages = req.files.map(file => file.filename);
 
-        oldImages = ["uploads\\gallery-1739719571171.jpg"]
+        oldImages = ["uploads\gallery-1740116144458.jpg"]
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid ID" });
@@ -108,3 +110,32 @@ export const UpdateHelp = async (req, res) => {                                 
     }
 };
 
+
+
+export const GetHelps = async (req, res) => {
+    try {
+        let result = await HelpModule.find({});
+        if (!result) {
+            return res.status(404).json({ Err: "Data Is Not available" });
+        }
+        return res.status(201).json({ msg: "Data Get Successfully : ", result });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: "Error Get Data ", error });
+    }
+}
+
+
+export const GetHelpByID = async (req, res) => {
+    try {
+        const id = req.params.id;
+        let result = await HelpModule.findById(id);
+        if (!result) {
+            return res.status(404).json({ Err: "Data Is Not available" });
+        }
+        return res.status(201).json({ msg: "Data Get Successfully : ", result });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: "Error Get Data ", error });
+    }
+}

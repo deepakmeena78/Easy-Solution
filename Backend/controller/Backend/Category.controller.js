@@ -1,9 +1,26 @@
+import { validationResult } from "express-validator";
 import CategoryModule from "../../module/Category.Module.js";
+
+
+export const CategoryGet = async (req, res) => {
+    try {
+        const result = await CategoryModule.find({});
+        if (!result) {
+            return res.status(404).json({ msg: "Category Not" });
+        }
+        return res.status(201).json({ msg: "Get Category ", result });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: "Category Error : ", error });
+    }
+}
+
 
 export const Category = async (req, res) => {
     try {
         const { category } = req.body;
-        const newCategory = new CategoryModule({ category });
+        const gallery = req.file ? req.file.path : null;
+        const newCategory = new CategoryModule({ category, gallery });
         await newCategory.save();
         return res.status(201).json({ msg: "Add Category SauccessFully" });
     } catch (error) {

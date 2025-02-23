@@ -20,19 +20,18 @@ route.post("/verify",                                                           
     body("email", "Email is Required").notEmpty(),
     body("otp", "OTP Is Required").notEmpty(),
     verifyOtp);
-export default route;
-
-
-
+    
+    
+    
 route.post("/sign-in",
     body("email", "Invalid email address.").isEmail(),                                        // Sign-in
     body("email", "email is address.").notEmpty(),
     body("password", "Password Is Required").notEmpty(),
     SignIn);
+    
 
 
-
-route.post("/forgate-password",
+    route.post("/forgate-password",
     body("email", "Invalid email address.").isEmail(),                                        // Forgate Password
     body("email", "Email Is Required.").notEmpty(),
     ForgatePassword);
@@ -45,3 +44,5 @@ route.post("/change-password",                                                  
     body("newpassword", "Password Is Required"),
     body("confirm_password", "Password Is Required"),
     ChangePassword);
+
+    export default route;

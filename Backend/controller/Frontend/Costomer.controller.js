@@ -6,6 +6,7 @@ import { Templete } from "../../Utils/templete.js";
 import { Token } from "../../Utils/jwt.auth.js";
 
 
+
 export const SignUp = async (req, res) => {
     try {
         let errors = validationResult(req);
@@ -160,3 +161,4 @@ export const ChangePassword = async (req, res) => {
         return res.status(500).json({ msg: "ERROR Change Password", error: error.message });
     }//==================== Change Password ===================================================
 };
+

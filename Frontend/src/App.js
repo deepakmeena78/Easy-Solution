@@ -1,11 +1,14 @@
-import Header from "./Components/Header";
-import Slider from "./Components/Slider";
+import Header from "./Components/Home/Header";
+import Routing from "./Components/Routing";
+// import Test from "./Components/Test";
+import "./index.css";
 
 function App() {
   return (
     <>
       <Header />
-      <Slider />
+      <Routing />
+      {/* <Test /> */}
     </>
   );
 }

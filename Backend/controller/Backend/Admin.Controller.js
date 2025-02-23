@@ -5,6 +5,8 @@ import { Helpers } from "../../Helpers/Helper.js";
 import { Templete } from "../../Utils/templete.js";
 import { Token } from "../../Utils/jwt.auth.js";
 
+
+
 export const SignUp = async (req, res) => {                               // Sign-Up
     try {
         let errors = validationResult(req);
@@ -52,6 +54,10 @@ export const verifyOtp = async (req, res) => {                             // Ve
         }
         const { email, otp } = req.body;
         let result = await Admin.findOne({ email });
+        if (!result) {
+            return res.status(404).json({ msg: "Email Is Wrong" });
+        }
+
         if (result) {
             let OTP = result.otp;
             if (otp === OTP) {
