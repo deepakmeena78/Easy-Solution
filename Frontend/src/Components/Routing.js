@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Help from './Help/Help'
 import Home from './Home/Home'
 import HelpById from './Help/HelpById'
+import SignUp from './SignUpIn/SignUp'
 
 const Routing = () => {
     return (
@@ -10,7 +11,8 @@ const Routing = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/help' element={<Help />} />
-                <Route path='//help-details/:id' element={<HelpById />} />
+                <Route path='/help-details/:id' element={<HelpById />} />
+                <Route path='/sign-up' element={<SignUp />} />
                 <Route path="*" element={<h2>Page Not Found</h2>} />
             </Routes>
         </>

@@ -1,3 +1,4 @@
+import Footer from "./Components/Home/Footer";
 import Header from "./Components/Home/Header";
 import Routing from "./Components/Routing";
 // import Test from "./Components/Test";
@@ -8,7 +9,7 @@ function App() {
     <>
       <Header />
       <Routing />
-      {/* <Test /> */}
+      <Footer />
     </>
   );
 }

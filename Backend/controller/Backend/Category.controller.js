@@ -4,16 +4,16 @@ import CategoryModule from "../../module/Category.Module.js";
 
 export const CategoryGet = async (req, res) => {
     try {
-        const result = await CategoryModule.find({});
-        if (!result) {
-            return res.status(404).json({ msg: "Category Not" });
+        const result = await CategoryModule.find({}).limit(5);
+        if (!result || result.length === 0) {
+            return res.status(404).json({ msg: "No Categories Found" });
         }
-        return res.status(201).json({ msg: "Get Category ", result });
+        return res.status(200).json({ msg: "Get Category", result });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ msg: "Category Error : ", error });
+        return res.status(500).json({ msg: "Category Error", error });
     }
-}
+};
 
 
 export const Category = async (req, res) => {

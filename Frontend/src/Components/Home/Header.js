@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
+    const navigate = useNavigate();
+
     return (
         <>
             <div className="bg-green-100 flex justify-between items-center px-6 py-2">
@@ -22,7 +24,10 @@ function Header() {
                     <i className="bi bi-search ml-2"></i>
                 </div>
 
-                <button className="px-6 py-2 border border-green-500 text-green-500 rounded-full hover:bg-green-500 hover:text-white transition">
+                <button
+                    className="px-6 py-2 border border-green-500 text-green-500 rounded-full hover:bg-green-500 hover:text-white transition"
+                    onClick={() => navigate("/sign-up")}
+                >
                     Login
                 </button>
             </div>
