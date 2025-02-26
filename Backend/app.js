@@ -1,5 +1,5 @@
 import express from "express";
-import CostomerRoute from "./routes/Frontend/Costomer.routes.js";
+import CustomerRoute from "./routes/Frontend/Customer.routes.js";
 import AdminRoute from "./routes/Backend/admin.routes.js";
 import HelpRoute from "./routes/Frontend/Help.routes.js";
 import HelpProvider from "./routes/Frontend/HelpProvider.routes.js";
@@ -19,7 +19,7 @@ connectDB();
 
 app.use("/admin", AdminRoute);
 app.use("/category", CategoryRoute);
-app.use("/costomer", CostomerRoute);
+app.use("/customer", CustomerRoute);
 app.use("/help", HelpRoute);
 app.use("/help-provider", HelpProvider);
 app.use("/review", Review);

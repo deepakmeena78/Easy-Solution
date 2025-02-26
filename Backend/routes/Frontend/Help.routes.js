@@ -26,11 +26,10 @@ route.post("/find-help", FindHelp);                                             
 route.post("/update-help/:id", upload.array("gallery", 5),                                // Update Help By Id
     body("title", "Title is Required").notEmpty(),
     body("description", "Description is Required").notEmpty(),
-    body("category", "Help_seeker is Required").notEmpty(),
+    body("category", "Categoryis Required").notEmpty(),
     body("location", "Location is Required").notEmpty(),
     body("pincode", "Pincode is Required").notEmpty(),
-    body("help_date", "Status is Required").notEmpty(),
-    body("oldImages", "Help_date is Required").notEmpty(),
+    body("help_date", "Help Date is Required").notEmpty(),
     UpdateHelp)
 
 // route.delete("/delete-help/:id", DeleteHelp);                                          // Delete Help

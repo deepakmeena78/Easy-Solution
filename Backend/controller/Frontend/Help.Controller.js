@@ -52,17 +52,21 @@ export const FindHelp = async (req, res) => {                                   
 
 
 
-export const UpdateHelp = async (req, res) => {                                    // Update Help
+export const UpdateHelp = async (req, res) => {
     try {
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const id = req.params.id;
-        let { title, description, category, location, pincode, help_date } = req.body;
-        let newImages = req.files.map(file => file.filename);
 
-        oldImages = ["uploads\gallery-1740116144458.jpg"]
+        const id = req.params.id;
+        let { title, description, category, location, pincode, help_date, oldImages } = req.body;
+
+        if (typeof oldImages === "string") {
+            oldImages = JSON.parse(oldImages);
+        }
+        oldImages = oldImages || ["uploads/gallery-1740484334621.jpg"];
+        const newImages = req.files.map(file => `uploads/${file.filename}`);
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid ID" });
@@ -73,26 +77,25 @@ export const UpdateHelp = async (req, res) => {                                 
             return res.status(404).json({ error: "Data not found" });
         }
 
-        let imagesToDelete = [];
-        if (oldImages && oldImages.length > 0) {
-            imagesToDelete = helpItem.gallery.filter(img => !oldImages.includes(img));
-        }
+        let imagesToDelete = helpItem.gallery.filter(img => !oldImages.includes(img));
 
         imagesToDelete.forEach(img => {
-
-            const filePath = path.join(__dirname, "..", "..", img.replace("uploads/", ""));
+            const filePath = path.resolve(__dirname, "..", img);
             console.log("Attempting to delete:", filePath);
 
             if (fs.existsSync(filePath)) {
-                fs.unlinkSync(filePath);
-                console.log("Deleted:", filePath);
+                try {
+                    fs.unlinkSync(filePath);
+                    console.log("Deleted:", filePath);
+                } catch (err) {
+                    console.error("Error deleting file:", filePath, err);
+                }
             } else {
                 console.log("File not found, skipping:", filePath);
             }
         });
 
         helpItem.set({
-            ...helpItem,
             title,
             description,
             category,
@@ -103,12 +106,15 @@ export const UpdateHelp = async (req, res) => {                                 
         });
 
         await helpItem.save();
-        return res.status(201).json({ msg: "Update Successfully" });
+        return res.status(200).json({ msg: "Updated Successfully", helpItem });
+
     } catch (error) {
         console.error("ERROR:", error);
         return res.status(500).json({ msg: "ERROR Updating Help", error });
     }
 };
+
+
 
 
 
