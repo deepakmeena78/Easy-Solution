@@ -71,6 +71,7 @@ export const verifyOtp = async (req, res) => {
 }
 
 
+
 export const SignIn = async (req, res) => {
     try {
         let errors = validationResult(req);
@@ -101,6 +102,7 @@ export const SignIn = async (req, res) => {
         return res.status(500).json({ msg: "ERROR SIGN-IN ", error });
     }
 }
+
 
 
 export const ForgatePassword = async (req, res) => {
@@ -141,7 +143,9 @@ export const ChangePassword = async (req, res) => {
     try {
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(
+                
+                400).json({ errors: errors.array() });
         }
         let { email, newpassword, confirm_password } = req.body;
         if (newpassword !== confirm_password) {
@@ -161,9 +165,8 @@ export const ChangePassword = async (req, res) => {
         return res.status(500).json({ msg: "ERROR Change Password", error: error.message });
     }//==================== Change Password ===================================================
 };
-
-
  
+
 
 export const UpdateProfile = async (req, res) => {
     try {
@@ -194,3 +197,5 @@ export const UpdateProfile = async (req, res) => {
         return res.status(500).json({ msg: "Error updating profile" });
     }
 };
+
+ 

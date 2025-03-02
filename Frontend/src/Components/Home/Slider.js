@@ -5,17 +5,17 @@ const slides = [
     {
         image: "/Images/slider_1.jpg",
         title: "Welcome to Our Service",
-        description: "Get the best solutions for your business needs.",
+        description: "Get the best solutions for your needs.",
     },
     {
         image: "/Images/slider_2.jpg",
-        title: "Innovate with Us",
-        description: "We provide cutting-edge technology to enhance your workflow.",
+        title: "About",
+        description: "About Page Render",
     },
     {
         image: "/Images/slider_3.jpg",
-        title: "Grow Your Business",
-        description: "Join us to scale your business to new heights.",
+        title: "Grow  in Your life",
+        description: "Easy Solution.",
     },
 ];
 

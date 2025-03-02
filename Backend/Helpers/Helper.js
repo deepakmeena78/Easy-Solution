@@ -28,7 +28,7 @@ export class Helpers {
         return
     }
 
-
+h
 
     generateOtp(limit, type = "digit") {
         let characters = "0123456789";
@@ -41,7 +41,6 @@ export class Helpers {
         }
         return otp;
     }
-
 
 
 

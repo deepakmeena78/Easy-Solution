@@ -33,6 +33,7 @@ export const CreateHelp = async (req, res) => {                               //
 };
 
 
+
 export const FindHelp = async (req, res) => {                                    // Help Find BY Id 
     try {
         let errors = validationResult(req);
@@ -62,39 +63,58 @@ export const UpdateHelp = async (req, res) => {
         const id = req.params.id;
         let { title, description, category, location, pincode, help_date, oldImages } = req.body;
 
-        if (typeof oldImages === "string") {
-            oldImages = JSON.parse(oldImages);
-        }
-        oldImages = oldImages || ["uploads/gallery-1740484334621.jpg"];
-        const newImages = req.files.map(file => `uploads/${file.filename}`);
+        console.log("Received oldImages:", oldImages);
 
+        // ✅ **Convert oldImages from string to array & Fix Path Slashes**
+        if (typeof oldImages === "string") {
+            try {
+                oldImages = JSON.parse(oldImages); // Convert to array
+            } catch (err) {
+                oldImages = [oldImages]; // If JSON parsing fails, store as array
+            }
+        }
+        oldImages = oldImages.map(img => img.replace(/\\/g, "/")); // ✅ Convert `\` to `/`
+        oldImages = oldImages || [];
+
+        // ✅ **New images array**
+        const newImages = req.files ? req.files.map(file => `uploads/${file.filename}`) : [];
+
+        // 🔹 **Check if the provided ID is valid**
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid ID" });
         }
 
+        // 🔹 **Fetch the existing help item**
         let helpItem = await HelpModule.findById(id);
         if (!helpItem) {
             return res.status(404).json({ error: "Data not found" });
         }
 
-        let imagesToDelete = helpItem.gallery.filter(img => !oldImages.includes(img));
-
-        imagesToDelete.forEach(img => {
-            const filePath = path.resolve(__dirname, "..", img);
+        // 🔥 **Step 1: Delete Old Images from Uploads Folder**
+        const deleteImage = (imagePath) => {
+            const filePath = path.resolve(__dirname, "..", imagePath);
             console.log("Attempting to delete:", filePath);
 
             if (fs.existsSync(filePath)) {
-                try {
-                    fs.unlinkSync(filePath);
-                    console.log("Deleted:", filePath);
-                } catch (err) {
-                    console.error("Error deleting file:", filePath, err);
-                }
+                fs.unlink(filePath, (err) => {
+                    if (err) {
+                        console.error("Error deleting file:", filePath, err);
+                    } else {
+                        console.log("Deleted:", filePath);
+                    }
+                });
             } else {
                 console.log("File not found, skipping:", filePath);
             }
+        };
+
+        helpItem.gallery.forEach(img => {
+            if (!oldImages.includes(img)) {
+                deleteImage(img);
+            }
         });
 
+        // 🔥 **Step 2: Update Database with New Images**
         helpItem.set({
             title,
             description,
@@ -102,7 +122,7 @@ export const UpdateHelp = async (req, res) => {
             location,
             pincode,
             help_date,
-            gallery: [...oldImages, ...newImages]
+            gallery: newImages // Store only new images
         });
 
         await helpItem.save();
@@ -113,6 +133,7 @@ export const UpdateHelp = async (req, res) => {
         return res.status(500).json({ msg: "ERROR Updating Help", error });
     }
 };
+
 
 
 
@@ -132,6 +153,7 @@ export const GetHelps = async (req, res) => {
 }
 
 
+
 export const GetHelpByID = async (req, res) => {
     try {
         const id = req.params.id;
@@ -145,3 +167,22 @@ export const GetHelpByID = async (req, res) => {
         return res.status(500).json({ msg: "Error Get Data ", error });
     }
 }
+
+    
+
+export const DeleteHelp = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const result = await HelpModule.findByIdAndDelete(id, { new: true });
+        console.log(result);
+
+        if (!result) {
+            return res.status(404).json({ msg: "Invalid Id" });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: "Delete Help ERROR" });
+    }
+}
+

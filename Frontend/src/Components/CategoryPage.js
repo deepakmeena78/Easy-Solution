@@ -1,43 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "../../App.css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
+import "./../App.css";
 
-const Categories = () => {
+const CategoryPage = () => {
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("https://randomuser.me/api/?results=5")
+        fetch("https://randomuser.me/api/?results=10")
             .then((response) => response.json())
             .then((data) => {
                 setUsers(data.results);
+                setLoading(false);
             })
-            .catch((error) => console.error("Error fetching users:", error));
+            .catch((error) => {
+                console.error("Error fetching users:", error);
+                setLoading(false);
+            });
     }, []);
 
     return (
         <div className="w-full mx-auto p-6 text-center overflow-hidden bg-white">
             <h2 className="text-2xl font-bold text-[var(--dark-blue)]">
-                BROWSE CATEGORIES
+                 CATEGORIES
             </h2>
             <div className="border-b-2 w-16 mx-auto mt-2 mb-6 border-[var(--dark-blue)]"></div>
 
-            {/* ✅ Mobile View - Swiper */}
             <div className="block md:hidden">
-                <Swiper
-                    modules={[Navigation, Pagination]}
-                    spaceBetween={10}
-                    slidesPerView={2}
-                    navigation
-                    pagination={{ clickable: true }}
-                >
-                    {users.length > 0 ? (
-                        users.map((user, index) => (
+                {loading ? (
+                    <p className="text-gray-500">Loading users...</p>
+                ) : (
+                    <Swiper
+                        modules={[Navigation, Pagination]}
+                        spaceBetween={10}
+                        slidesPerView={2}
+                        navigation
+                        pagination={{ clickable: true }}
+                    >
+                        {users.map((user, index) => (
                             <SwiperSlide key={index}>
-                                <div className="bg-white shadow-lg rounded-lg p-4 text-center border border-gray-300 transition-all duration-300 hover:border-[var(--dark-blue)] hover:scale-105 hover:shadow-[0px_3px_8px_rgba(0,0,0,0.24)]">
+                                <div className="bg-white shadow-lg rounded-lg p-4 text-center border border-gray-300 transition-all duration-300 hover:border-[var(--dark-blue)] hover:scale-105 hover:shadow-lg">
                                     <img
                                         src={user.picture.large}
                                         alt={`${user.name.first} ${user.name.last}`}
@@ -46,24 +52,24 @@ const Categories = () => {
                                     <h3 className="mt-2 text-lg font-semibold">
                                         {user.name.first} {user.name.last}
                                     </h3>
-                                    <button className="mt-2 px-4 py-1 text-[var(--dark-blue)] border border-[var(--dark-blue)] rounded-full hover:bg-[var(--dark-blue)] hover:text-white">
+                                    <button className="mt-2 px-4 py-1 text-[var(--dark-blue)] border border-[var(--dark-blue)] rounded-full transition-all duration-200 hover:bg-[var(--dark-blue)] hover:text-white">
                                         Search
                                     </button>
                                 </div>
                             </SwiperSlide>
-                        ))
-                    ) : (
-                        <p className="text-gray-500">Loading users...</p>
-                    )}
-                </Swiper>
+                        ))}
+                    </Swiper>
+                )}
             </div>
 
             {/* ✅ Desktop View - Grid */}
             <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-12">
-                {users.length > 0 ? (
+                {loading ? (
+                    <p className="text-gray-500">Loading users...</p>
+                ) : (
                     users.map((user, index) => (
                         <div key={index}
-                            className=" bg-white shadow-lg rounded-lg p-4 text-center border border-gray-300 transition-all duration-300 hover:border-blue-500 hover:scale-105 hover:shadow-[0px_3px_8px_rgba(0,0,0,0.24)]"
+                            className="bg-white shadow-lg rounded-lg p-4 text-center border border-gray-300 transition-all duration-300 hover:border-[var(--dark-blue)] hover:scale-105 hover:shadow-lg"
                         >
                             <img
                                 src={user.picture.large}
@@ -73,27 +79,16 @@ const Categories = () => {
                             <h3 className="mt-2 text-lg font-semibold">
                                 {user.name.first} {user.name.last}
                             </h3>
-                            <button className="mt-2 px-4 py-1 text-[#2C585E] border border-[#2C585E] rounded-full hover:bg-[#2C585E] hover:text-white">
+                            <button className="mt-2 px-4 py-1 text-[var(--dark-blue)] border border-[var(--dark-blue)] rounded-full transition-all duration-200 hover:bg-[var(--dark-blue)] hover:text-white">
                                 Search
                             </button>
                         </div>
                     ))
-                ) : (
-                    <p className="text-gray-500">Loading users...</p>
                 )}
             </div>
 
-            <button className="mt-6 px-6 py-2 bg-[var(--dark-blue)] text-white rounded-lg hover:bg-[#23474C] m-6">
-                VIEW ALL CATEGORIES
-            </button>
-            <hr />
-            <hr />
-            <hr />
-            <hr />
-            <hr />
-            <hr />
         </div>
     );
 };
 
-export default Categories;
+export default CategoryPage;

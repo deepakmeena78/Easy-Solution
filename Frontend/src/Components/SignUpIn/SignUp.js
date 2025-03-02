@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import "../../App.css";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const SignUp = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  toast.success("Sign Up Page");
 
   const togglePassword = () => {
     setPasswordVisible(!passwordVisible);
     setPasswordType(passwordVisible ? "password" : "text");
   };
 
-  return (
+  return (<>
+    <ToastContainer />
     <div className="flex items-center justify-center min-h-screen bg-relatedWhite py-10 px-2">
       <div className="flex flex-col md:flex-row w-full max-w-6xl bg-relatedWhite border border-darkColor rounded-lg shadow-[0px_3px_8px_rgba(0,0,0,0.24)] py-2">
         {/* Left Side (Form) */}
@@ -110,6 +114,7 @@ const SignUp = () => {
         </div>
       </div>
     </div>
+  </>
   );
 };
 

@@ -1,4 +1,5 @@
 {
+  "proxy": "http://localhost:3200",
   "name": "task-management-api",
   "version": "1.0.0",
   "description": "",
