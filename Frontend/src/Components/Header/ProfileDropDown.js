@@ -76,8 +76,8 @@ const ProfileDropdown = () => {
                       ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         <div className="px-4 py-3 border-b">
-          <p className="text-sm font-medium text-gray-900">{"sohan"}</p>
-          <p className="text-xs text-gray-500">{"sohanmalai@gmail.com"}</p>
+          <p className="text-sm font-medium text-gray-900">{"Deepak"}</p>
+          <p className="text-xs text-gray-500">{"deepakmeenaa78@gmail.com"}</p>
         </div>
 
         <div className="py-1">
