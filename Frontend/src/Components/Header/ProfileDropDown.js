@@ -13,7 +13,7 @@ const sideBarData = [
     label: "Profile",
   },
   {   
-    url: "/account/listing",
+    url: "/account/help",
     label: "Listing",
   },
   {

@@ -8,6 +8,8 @@ import AllHelps from './Help/AllHelps'
 import CategoryPage from './CategoryPage'
 import Dashboard from './Profile/Dashboard'
 import Profile from './Profile/Profile'
+import HelpList from './Profile/HelpList'
+import Prime from './Profile/Prime'
 
 const Routing = () => {
     return (
@@ -21,6 +23,8 @@ const Routing = () => {
                 <Route path='/category' element={<CategoryPage />} />
                 <Route path='/acount/dashboard' element={<Dashboard />} />
                 <Route path='/account/profile' element={<Profile />} />
+                <Route path='/account/help' element={<HelpList />} />
+                <Route path='/account/prime' element={<Prime />} />
                 <Route path="*" element={<h2>Page Not Found</h2>} />
             </Routes>
         </>

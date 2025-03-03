@@ -16,7 +16,7 @@ const Footer = () => {
                             <img src="/Images/logo.png" className="h-16 me-3" alt="FlowBite Logo" />
                             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Easy Solution</span>
                         </a>
-                        <label className="text-white"> Whenever someone needs help,
+                        <label className="text-white"> Whenever someone needs help,<br/>
                             Our platform is always with you, my friends!</label>
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

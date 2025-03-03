@@ -3,11 +3,15 @@ import ProfileSlider from "./SliderProfile";
 
 const Profile = () => {
     return (
+        <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+            {/* Sidebar Profile Slider */}
+            <div className="w-full md:w-1/4 bg-white shadow-md">
+                <ProfileSlider />
+            </div>
 
-        <div className="flex">
-            <ProfileSlider />
+            {/* Main Profile Section */}
             <div className="flex-1 p-5">
-                <div className="w-full md:w-3/4 mx-auto p-6 bg-white shadow-md rounded-lg">
+                <div className="w-full md:w-3/4 lg:w-2/3 mx-auto p-6 bg-white shadow-md rounded-lg">
                     <h2 className="text-2xl font-bold text-gray-700 mb-4">Profile Details</h2>
 
                     {/* Profile Image Upload Section */}
@@ -21,23 +25,24 @@ const Profile = () => {
                         </label>
                     </div>
 
+                    {/* Profile Form */}
                     <form>
                         {/* Name and Mobile */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                            <div className="relative w-full">
+                            <div className="relative">
                                 <input type="text" name="name" defaultValue="Ankit"
-                                    className="peer w-full px-3 pt-3.5 pb-1 border-b border-gray-300 placeholder-transparent focus:outline-none focus:border-darkColor"
+                                    className="peer w-full px-3 pt-4 pb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                                     placeholder="Name" />
-                                <label className="top-[-10px] absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:text-darkColor peer-focus:text-sm">
+                                <label className="absolute left-3 top-2 text-gray-500 text-sm peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500">
                                     Name
                                 </label>
                             </div>
 
-                            <div className="relative w-full">
+                            <div className="relative">
                                 <input type="text" name="mobile" defaultValue="9111948802"
-                                    className="peer w-full px-3 pt-3.5 pb-1 border-b border-gray-300 placeholder-transparent focus:outline-none focus:border-darkColor"
+                                    className="peer w-full px-3 pt-4 pb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                                     placeholder="Mobile" />
-                                <label className="top-[-10px] absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:text-darkColor peer-focus:text-sm">
+                                <label className="absolute left-3 top-2 text-gray-500 text-sm peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500">
                                     Mobile
                                 </label>
                             </div>
@@ -45,22 +50,22 @@ const Profile = () => {
 
                         {/* Email and Gender */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                            <div className="relative w-full">
+                            <div className="relative">
                                 <input type="email" name="email" defaultValue="ankitmeena@gmail.com"
-                                    className="peer w-full px-3 pt-3.5 pb-1 border-b border-gray-300 placeholder-transparent focus:outline-none focus:border-darkColor"
+                                    className="peer w-full px-3 pt-4 pb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                                     placeholder="Email" />
-                                <label className="top-[-10px] absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:text-darkColor peer-focus:text-sm">
+                                <label className="absolute left-3 top-2 text-gray-500 text-sm peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500">
                                     Email
                                 </label>
                             </div>
 
-                            <div className="relative w-full">
+                            <div className="relative">
                                 <select name="gender" defaultValue="Male"
-                                    className="peer w-full px-3 pt-3.5 pb-1 border-b border-gray-300 focus:outline-none focus:border-darkColor">
+                                    className="peer w-full px-3 pt-4 pb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500">
                                     <option>Male</option>
                                     <option>Female</option>
                                 </select>
-                                <label className="top-[-10px] absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:text-darkColor peer-focus:text-sm">
+                                <label className="absolute left-3 top-2 text-gray-500 text-sm peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500">
                                     Gender
                                 </label>
                             </div>
@@ -68,20 +73,20 @@ const Profile = () => {
 
                         {/* Location and Pincode */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                            <div className="relative w-full">
+                            <div className="relative">
                                 <input type="text" name="location" defaultValue="Indore"
-                                    className="peer w-full px-3 pt-3.5 pb-1 border-b border-gray-300 placeholder-transparent focus:outline-none focus:border-darkColor"
+                                    className="peer w-full px-3 pt-4 pb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                                     placeholder="Location" />
-                                <label className="top-[-10px] absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:text-darkColor peer-focus:text-sm">
+                                <label className="absolute left-3 top-2 text-gray-500 text-sm peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500">
                                     Location
                                 </label>
                             </div>
 
-                            <div className="relative w-full">
+                            <div className="relative">
                                 <input type="text" name="pincode" defaultValue="455336"
-                                    className="peer w-full px-3 pt-3.5 pb-1 border-b border-gray-300 placeholder-transparent focus:outline-none focus:border-darkColor"
+                                    className="peer w-full px-3 pt-4 pb-2 border-b border-gray-300 focus:outline-none focus:border-blue-500"
                                     placeholder="Pincode" />
-                                <label className="top-[-10px] absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:text-darkColor peer-focus:text-sm">
+                                <label className="absolute left-3 top-2 text-gray-500 text-sm peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500">
                                     Pincode
                                 </label>
                             </div>
@@ -98,8 +103,6 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-
-
     );
 };
 
