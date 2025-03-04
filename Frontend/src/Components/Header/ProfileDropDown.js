@@ -1,41 +1,17 @@
 import React, { useState, useRef } from "react";
 import { BiLogOut } from "react-icons/bi";
+import { FaThLarge, FaUserCircle, FaHandsHelping, FaCrown, FaHistory, FaBell, FaHeadset } from "react-icons/fa";
 import { Link } from "react-router-dom"; // React Router Link import
 import { LogOut } from "./AuthButton";
 
 const sideBarData = [
-  {
-    url: "/acount/dashboard",
-    label: "Dashboard",
-  },
-  {
-    url: "/account/profile",
-    label: "Profile",
-  },
-  {   
-    url: "/account/help",
-    label: "Listing",
-  },
-  {
-    url: "/account/purchases",
-    label: "Purchases",
-  },
-  {
-    url: "/account/chat",
-    label: "Messages",
-  },
-  {
-    url: "/account/history",
-    label: "Order History",
-  },
-  {
-    url: "/account/notification",
-    label: "Notification",
-  },
-  {
-    url: "/account/support",
-    label: "Support",
-  },
+  { to: "/acount/dashboard", icon: <FaThLarge />, label: "Dashboard" },
+  { to: "/account/profile", icon: <FaUserCircle />, label: "Profile" },
+  { to: "/account/help", icon: <FaHandsHelping />, label: "Your Help" },
+  { to: "/account/prime", icon: <FaCrown />, label: "Prime" },
+  { to: "/history", icon: <FaHistory />, label: "Help History" },
+  { to: "/account/notifications", icon: <FaBell />, label: "Notification" },
+  { to: "/support", icon: <FaHeadset />, label: "Support" }
 ];
 
 const ProfileDropdown = () => {
@@ -65,9 +41,9 @@ const ProfileDropdown = () => {
     >
       <img
         onClick={toggleDropdown}
-        src={""}
+        src={""} // Add profile image URL here
         alt="Profile"
-        className="w-10 h-10 rounded-full border border-darkColor cursor-pointer hover:shadow-lg transition-shadow"
+        className="w-10 h-10 rounded-full border border-gray-300 cursor-pointer hover:shadow-lg transition-shadow"
       />
 
       <div
@@ -76,7 +52,7 @@ const ProfileDropdown = () => {
                       ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         <div className="px-4 py-3 border-b">
-          <p className="text-sm font-medium text-gray-900">{"Deepak"}</p>
+          <p className="text-sm font-semibold text-gray-900">{"Deepak"}</p>
           <p className="text-xs text-gray-500">{"deepakmeenaa78@gmail.com"}</p>
         </div>
 
@@ -84,17 +60,18 @@ const ProfileDropdown = () => {
           {sideBarData.map((item, index) => (
             <Link
               key={index}
-              to={item.url} // "href" ko "to" me change kiya
-              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-lightColor"
+              to={item.to}
+              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-200"
             >
-              <span className="ml-2">{item.label}</span>
+              <span className="w-5 h-5 text-gray-500">{item.icon}</span>
+              <span className="ml-3">{item.label}</span>
             </Link>
           ))}
         </div>
 
         <div className="border-t py-1">
           <div className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer">
-            <BiLogOut className="w-4 h-4 mr-3" />
+            <BiLogOut className="w-5 h-5 mr-3" />
             <LogOut />
           </div>
         </div>
