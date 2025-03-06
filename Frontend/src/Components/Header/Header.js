@@ -165,12 +165,6 @@ const Header = () => {
           </div>
         </nav>
       </div>
-
-      <style jsx>{`
-        .menu-transition {
-          transition: transform 0.3s ease-in-out;
-        }
-      `}</style>
     </>
   );
 };

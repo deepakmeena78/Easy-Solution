@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 
-export const startChatServer = (server) => {
+export default (server) => {
   const io = new Server(server, {
     cors: {
       origin: "*",
@@ -9,17 +9,15 @@ export const startChatServer = (server) => {
   });
 
   io.on("connection", (socket) => {
-    console.log(`User connected: ${socket.id}`);
+    console.log("New user connected:", socket.id);
 
-    // Listen for chat messages
     socket.on("sendMessage", (data) => {
-      console.log(`Message from ${data.username}: ${data.message}`);
-      io.emit("receiveMessage", data); // Broadcast message to all users
+      console.log("Message received:", data);
+      io.emit("receiveMessage", data); 
     });
 
-    // Handle user disconnect
     socket.on("disconnect", () => {
-      console.log(`User disconnected: ${socket.id}`);
+      console.log("User disconnected:", socket.id);
     });
   });
 };

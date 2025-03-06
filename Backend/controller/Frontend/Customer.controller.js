@@ -13,31 +13,41 @@ export const SignUp = async (req, res) => {
         if (!errors.isEmpty()) {
             return res.status(400).json({ msg: "Validation Error", errors: errors.array() });
         }
-        let { name, email, password, mobile, location, pincode } = req.body;
+
+        let { name, email, password } = req.body;
         const salt = bcrypt.genSaltSync(10);
         password = bcrypt.hashSync(password, salt);
+        
         const helper = new Helpers();
         const otp = helper.generateOtp(4);
-        const result = new Customer({ name, email, password, mobile, location, pincode, otp });
-        await result.save();
+
+        const existingUser = await Customer.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({ msg: "User already exists with this email" });
+        }
+
+        const newUser = new Customer({ name, email, password, otp });
+        await newUser.save();
+
         let data = {
-            otp: result.otp,
+            otp: newUser.otp,
             year: new Date().getFullYear(),
             appName: process.env.APP_NAME,
-            name: result.name,
-            email: result.email,
+            name: newUser.name,
+            email: newUser.email,
             subject: "Send OTP Jaldi",
         };
+
         const templateData = new Templete().getOtpTemplete(data);
         helper.sendMail(data, templateData);
 
-        return res.status(200).json({ msg: "Signup Successful", user: result });
+        return res.status(200).json({ msg: "Signup Successful", user: newUser });
     } catch (error) {
         console.error("Signup Error:", error);
         return res.status(500).json({ msg: "ERROR SIGN-UP", error: error.message });
     }
 };
-
 
 
 export const verifyOtp = async (req, res) => {
@@ -144,7 +154,7 @@ export const ChangePassword = async (req, res) => {
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(
-                
+
                 400).json({ errors: errors.array() });
         }
         let { email, newpassword, confirm_password } = req.body;
@@ -165,7 +175,7 @@ export const ChangePassword = async (req, res) => {
         return res.status(500).json({ msg: "ERROR Change Password", error: error.message });
     }//==================== Change Password ===================================================
 };
- 
+
 
 
 export const UpdateProfile = async (req, res) => {
@@ -198,4 +208,3 @@ export const UpdateProfile = async (req, res) => {
     }
 };
 
- 

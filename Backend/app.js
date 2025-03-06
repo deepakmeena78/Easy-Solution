@@ -6,9 +6,15 @@ import HelpProvider from "./routes/Frontend/HelpProvider.routes.js";
 import CategoryRoute from "./routes/Backend/Category.routes.js";
 import Review from "./routes/Frontend/Review.routes.js";
 import connectDB from "./db/db.config.js";
-import cors from "cors";
+import http from "http"
 
 const app = express();
+import socketHandler from "./Helpers/Chatbot.js";
+const server = http.createServer(app);
+socketHandler(server);
+
+import cors from "cors";
+
 
 app.use(cors());
 app.use(express.json());
@@ -26,5 +32,5 @@ app.use("/review", Review);
 
 const Port = process.env.PORT || 3200;
 app.listen(Port, () => {
-    console.log("Server Started");
+    console.log("Server Started" + Port);
 });

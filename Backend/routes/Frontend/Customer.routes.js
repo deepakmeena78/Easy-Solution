@@ -9,9 +9,7 @@ route.post(
     body("name", "Name is required.").notEmpty(),
     body("email", "Invalid email address.").isEmail(),
     body("email", "Email is Required").notEmpty(),
-    body("password", "Password Is Required").isLength({ min: 6, max: 8 }),
-    body("location", "Location is required.").notEmpty(),
-    body("pincode", "Pincode must be 6 digits.").notEmpty().isLength({ min: 6, max: 6 }),
+    body("password", "Password Is Required").notEmpty(),
     SignUp
 );
 

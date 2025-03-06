@@ -14,6 +14,7 @@ const sideBarData = [
   { to: "/support", icon: <FaHeadset />, label: "Support" }
 ];
 
+
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);

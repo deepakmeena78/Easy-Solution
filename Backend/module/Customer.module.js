@@ -16,16 +16,15 @@ const userSchema = new mongoose.Schema({
     },
     mobile: {
         type: String,
-        required: true,
-        unique: true
+        default: null
     },
     location: {
         type: String,
-        required: true
+        default: null
     },
     pincode: {
         type: String,
-        required: true
+        default: null
     },
     image: {
         type: String,
