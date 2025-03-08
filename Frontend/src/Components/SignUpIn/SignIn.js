@@ -55,9 +55,7 @@ const SignIn = () => {
       email: validate("email", formData.email),
       password: validate("password", formData.password),
     };
-
     setErrors(newErrors);
-
     if (Object.values(newErrors).some((err) => err !== "")) {
       return;
     }
@@ -77,7 +75,6 @@ const SignIn = () => {
 
   return (
     <>
-      <Toaster />
       <div className="flex items-center justify-center min-h-screen bg-relatedWhite py-10 px-2">
         <div className="flex flex-col md:flex-row w-full max-w-6xl bg-relatedWhite border border-darkColor rounded-lg shadow-[0px_3px_8px_rgba(0,0,0,0.24)] py-2">
           {/* Left Side (Form) */}

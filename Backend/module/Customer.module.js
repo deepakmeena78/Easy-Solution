@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
     },
     mobile: {
         type: String,
-        default: null
+        default: null,
+        unique:false
     },
     location: {
         type: String,

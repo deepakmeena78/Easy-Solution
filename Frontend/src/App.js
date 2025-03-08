@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Home/Footer";
 import Routing from "./Components/Routing";
@@ -7,6 +8,7 @@ function App() {
   return (
     <>
       <Header />
+      <Toaster />
       <Routing />
       <Footer />
     </>
