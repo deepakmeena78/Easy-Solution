@@ -3,6 +3,25 @@ import HelpProvider from "../../module/HelpProvider.module.js";
 import { Templete } from "../../Utils/templete.js";
 
 
+// export const GetProvider = async (req, res) => {
+//     try {
+//         let result = await HelpProvider.find()
+//             .populate("help")
+//             .populate("help_seeker")
+//             .populate("offerd_by");
+//         if (!result) {
+//             return res.status(404).json({ msg: "No Providers Found" });
+//         }
+//         return res.status(200).json({ msg: "Providers Fetched Successfully", result });
+
+//     } catch (error) {
+//         console.error("Error fetching providers:", error);
+//         return res.status(500).json({ msg: "Server Error", error });
+//     }
+// };
+
+
+
 export const Create = async (req, res) => {
     try {
         const { help, help_seeker, offerd_by } = req.body;
@@ -23,7 +42,7 @@ export const Update = async (req, res) => {
         const id = req.params.id
 
         let helpprovider = await HelpProvider.findById(id)
-            .populate("offerd_by")
+            .populate("offered_by")
             .populate("help")
             .populate("help_seeker");
 

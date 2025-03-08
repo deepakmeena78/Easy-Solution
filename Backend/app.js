@@ -14,8 +14,6 @@ const server = http.createServer(app);
 socketHandler(server);
 
 import cors from "cors";
-
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

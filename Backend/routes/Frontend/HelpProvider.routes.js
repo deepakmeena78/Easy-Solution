@@ -1,8 +1,10 @@
 import express from "express";
 const route = express.Router();
-import { Create,Update } from "../../controller/Frontend/HelpProvider.Controller.js";
+import { Create, Update } from "../../controller/Frontend/HelpProvider.Controller.js";
 
-route.post("/create", Create);               // Help Apply
+// route.get("/get-provider", GetProvider);         // Get Provider
+
+route.post("/create", Create);                   // Help Apply
 
 route.post("/update/:id", Update);               // Help Apply
 

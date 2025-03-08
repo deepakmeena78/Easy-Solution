@@ -15,7 +15,7 @@ const SignUp = () => {
   });
 
   const [errors, setErrors] = useState({});
-
+  
   const validate = (field, value) => {
     let errorMsg = "";
 

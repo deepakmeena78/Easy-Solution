@@ -18,7 +18,7 @@ export class Helpers {
             subject: data.subject,
             html: template
         };
-
+ 
         transporter.sendMail(mailData, function (err, info) {
             if (err)
                 console.log(err)

@@ -8,12 +8,12 @@ const ProviderSchema = new mongoose.Schema({
     },
     help_seeker: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Costomer",
+        ref: "Customer",
         required: true
     },
     offerd_by: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Costomer",
+        ref: "Customer",
         required: true
     },
     status: {

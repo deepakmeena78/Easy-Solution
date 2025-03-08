@@ -4,7 +4,6 @@ import Categories from './Categorys'
 import ProviderExample from './ProviderExample'
 import HowItWorks from './HowItWorks'
 import StatasCounter from './StatasCounter'
-import ChatBox from '../Help/ChatBox'
 
 const Home = () => {
   return (
@@ -14,7 +13,6 @@ const Home = () => {
       <ProviderExample />
       <HowItWorks />
       <StatasCounter />
-      <ChatBox />
     </>
   )
 }

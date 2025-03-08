@@ -5,6 +5,18 @@ import { Helpers } from "../../Helpers/Helper.js";
 import { Templete } from "../../Utils/templete.js";
 import { Token } from "../../Utils/jwt.auth.js";
 
+export const GetCustomer = async (req, res) => {
+    try {
+        const result = await Customer.find();
+        if (!result) {
+            return res.status(404).json({ msg: "Customer Data Not Available" });
+        }
+        return res.status(200).json({ msg: "Succcessfully Get Data", result });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ msg: "Get Data Customer", error });
+    }
+}
 
 
 export const SignUp = async (req, res) => {
@@ -17,7 +29,7 @@ export const SignUp = async (req, res) => {
         let { name, email, password } = req.body;
         const salt = bcrypt.genSaltSync(10);
         password = bcrypt.hashSync(password, salt);
-        
+
         const helper = new Helpers();
         const otp = helper.generateOtp(4);
 
@@ -79,7 +91,6 @@ export const verifyOtp = async (req, res) => {
         return res.status(500).json({ msg: "ERROR OTP Verify" });
     }
 }
-
 
 
 export const SignIn = async (req, res) => {

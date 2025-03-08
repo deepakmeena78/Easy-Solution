@@ -1,8 +1,12 @@
 import express from "express";
-import { SignUp, verifyOtp, SignIn, ForgatePassword, ChangePassword, UpdateProfile } from "../../controller/Frontend/Customer.controller.js"
+import { GetCustomer, SignUp, verifyOtp, SignIn, ForgatePassword, ChangePassword, UpdateProfile } from "../../controller/Frontend/Customer.controller.js"
 const route = express.Router();
 import { body } from "express-validator";
 import { upload } from "../../Helpers/multer.js";
+
+
+route.get("/get-customer", GetCustomer);                                                  // Get Customer
+
 
 route.post(
     "/sign-up",                                                                            //  Sign-Up

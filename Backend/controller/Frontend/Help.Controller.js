@@ -8,7 +8,7 @@ import { validationResult } from "express-validator";
 // Manually define __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+    
 
 export const CreateHelp = async (req, res) => {                               // Create Help 
     try {
@@ -136,16 +136,13 @@ export const UpdateHelp = async (req, res) => {
 
 
 
-
-
-
 export const GetHelps = async (req, res) => {
     try {
         let result = await HelpModule.find({});
         if (!result) {
             return res.status(404).json({ Err: "Data Is Not available" });
         }
-        return res.status(201).json({ msg: "Data Get Successfully : ", result });
+        return res.status(200).json({ msg: "Data Get Successfully : ", result });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ msg: "Error Get Data ", error });

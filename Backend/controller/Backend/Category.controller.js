@@ -54,7 +54,6 @@ export const Update = async (req, res) => {
 }
 
 
-
 export const Delete = async (req, res) => {
     try {
         let errors = validationResult(req);
