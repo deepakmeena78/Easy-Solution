@@ -11,6 +11,7 @@ import Profile from './Profile/Profile'
 import HelpList from './Profile/HelpList'
 import Prime from './Profile/Prime'
 import Notification from './Profile/Notification'
+import CreateHelp from './Profile/CreateHelp'
 
 const Routing = () => {
     return (
@@ -27,6 +28,7 @@ const Routing = () => {
                 <Route path='/account/help' element={<HelpList />} />
                 <Route path='/account/prime' element={<Prime />} />
                 <Route path='/account/notifications' element={<Notification />} />
+                <Route path='/create-help' element={<CreateHelp />} />
                 <Route path="*" element={<h2>Page Not Found</h2>} />
             </Routes>
         </>
