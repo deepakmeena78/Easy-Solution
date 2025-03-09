@@ -33,7 +33,6 @@ const SignUp = () => {
     if (field === "password" && (value.length < 6 || value.length > 10)) {
       errorMsg = "Password must be 6-10 characters long!";
     }
-
     setErrors((prevErrors) => ({ ...prevErrors, [field]: errorMsg }));
   };
 
@@ -81,17 +80,14 @@ const SignUp = () => {
 
     try {
       const response = await axios.post("http://localhost:3200/customer/sign-up", formData);
-      console.log("Server Response:", response.data ? alert("Signup successful!") : console.log(response.data));
-
-        console.log('=========response======',response);
-        
       if (response.status === 200) {
         setIsModalOpen(true)
-        toast.success("verify Email By Otp");
+        toast.success("Verify Your Email");
       } else {
-        toast.error("Login failed!");
+        toast.error("Sign up failed!");
       }
     } catch (error) {
+      toast.error("Sign up failed!");
       console.error("Error:", error);
     }
   };

@@ -1,24 +1,19 @@
-// import { useDispatch } from "react-redux";
-// import { logout, setUser } from "../../store/slices/authSlice";
-// import { removeToken } from "../../utils/auth";
-// import { useRouter } from "next/navigation";
-// import setNotification from "../../utils/notification";
+import { useDispatch } from "react-redux";
+import { logout } from "../Authentication/AuthSlice";
+import { useNavigate } from "react-router-dom";
 
 
 
 export function LogOut() {
-  // const router = useRouter();
-  // const dispatch = useDispatch();
+  const navigate =  useNavigate()
+  const dispatch = useDispatch();
 
   function handleLogout() {
-    // removeToken();
-    // dispatch(logout());
-    // setNotification({ type: "info", message: "Logged out successfully" });
-    // setUser({ name: "", email: "", _id: "", mobile: "", image: "" });
-    // router.push("/");
+    dispatch(logout());
+    navigate('/')
   }
   return <span onClick={handleLogout}>Logout</span>;
-}
+}  
 export function Login() {
   // const router = useRouter();
   function handleLogIn() {

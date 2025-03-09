@@ -76,14 +76,15 @@ export const verifyOtp = async (req, res) => {
             if (otp === OTP) {
                 let token = new Token();
                 let tokenObj = {
-                    id: result._id,
+                    _id: result._id,
                     name: result.name,
                     email: result.email,
                     mobile: result.mobile,
                 }
                 let data = token.tokenGanrate(tokenObj);
-                res.cookie("costomer", data);
-                return res.status(200).json({ msg: "Sign-In Successfully : " });
+                // res.cookie(process.env.COOKIE_PREFIX || 'easy_solution', data);
+                // res.json({ success: true, message: "Cookie set" });
+                return res.status(200).json({ msg: "verify Successfully : " , token:data});
             }
             return res.status(401).json({ msg: "WRONG OTP" });
         }
@@ -91,11 +92,14 @@ export const verifyOtp = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ msg: "ERROR OTP Verify" });
     }
-}
-
+}   
+ 
 
 export const SignIn = async (req, res) => {
     try {
+
+        console.log('===================>>>>Login',req.body);
+        
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -107,14 +111,14 @@ export const SignIn = async (req, res) => {
             if (status) {
                 let token = new Token();
                 let tokenObj = {
-                    id: result._id,
+                    _id: result._id,
                     name: result.name,
                     email: result.email,
                     mobile: result.mobile,
                 }
                 let data = token.tokenGanrate(tokenObj);
-                res.cookie("costomer", data);
-                return res.status(200).json({ msg: "Sign-In Successfully : " });
+                // res.cookie("costomer", data);
+                return res.status(200).json({ msg: "Sign-In Successfully : ",token:data });
             }
             return res.status(401).json({ msg: "Invalid Password" });
         } else {

@@ -3,6 +3,7 @@ import { BiLogOut } from "react-icons/bi";
 import { FaThLarge, FaUserCircle, FaHandsHelping, FaCrown, FaHistory, FaBell, FaHeadset } from "react-icons/fa";
 import { Link } from "react-router-dom"; // React Router Link import
 import { LogOut } from "./AuthButton";
+import { useSelector } from "react-redux";
 
 const sideBarData = [
   { to: "/acount/dashboard", icon: <FaThLarge />, label: "Dashboard" },
@@ -16,6 +17,7 @@ const sideBarData = [
 
 
 const ProfileDropdown = () => {
+  const user = useSelector((state) => state.auth.user);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -42,7 +44,7 @@ const ProfileDropdown = () => {
     >
       <img
         onClick={toggleDropdown}
-        src={""} // Add profile image URL here
+        src={"/Images/No_Image_Available.jpg"} // Add profile image URL here
         alt="Profile"
         className="w-10 h-10 rounded-full border border-gray-300 cursor-pointer hover:shadow-lg transition-shadow"
       />
@@ -53,8 +55,8 @@ const ProfileDropdown = () => {
                       ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         <div className="px-4 py-3 border-b">
-          <p className="text-sm font-semibold text-gray-900">{"Deepak"}</p>
-          <p className="text-xs text-gray-500">{"deepakmeenaa78@gmail.com"}</p>
+          <p className="text-sm font-semibold text-gray-900">{user?.name}</p>
+          <p className="text-xs text-gray-500">{user?.email}</p>
         </div>
 
         <div className="py-1">

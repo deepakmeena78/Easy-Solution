@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useState, useRef } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { login } from "./AuthSlice";
 
 const OtpModal = ({ isOpen, onClose, onVerify,data }) => {
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState(["", "", "", ""]);
   const inputRefs = useRef([]);
 
@@ -25,13 +28,16 @@ const OtpModal = ({ isOpen, onClose, onVerify,data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
+    try { 
         const otpValue = otp.join("");
          const response = await axios.post("http://localhost:3200/customer/verify", {email:data.email,otp:otpValue});
          if (response.status === 200) {
+            console.log('===sign up====response==========',response);
+            dispatch(login({ token: response.data.token }));
             onVerify(4);
           } else {
-            toast.error("Login failed!");
+            setOtp(["", "", "", ""])
+            toast.error("invalid otp!");
           }
     } catch (error) {
         console.log('======Error while otp Varification',error);

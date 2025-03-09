@@ -68,7 +68,9 @@ const SignIn = () => {
         navigate("/");
       }
     } catch (err) {
-      toast.error("Login failed! Please check your credentials.");
+      console.log('===========',err);
+      
+      toast.error("Login failed! Please check your credentials.",err);
     }
   };
 
@@ -155,7 +157,7 @@ const SignIn = () => {
                   </Link>
                 </p>
               </div>
-            </form>
+            </form> 
           </div>
 
           {/* Right Side (Image) */}
