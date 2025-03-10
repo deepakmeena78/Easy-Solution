@@ -31,6 +31,7 @@ const AllHelps = () => {
   }, []);
 
 
+  
   return (
     <>
       <Toaster />
@@ -41,7 +42,6 @@ const AllHelps = () => {
               key={index}
               className="bg-white shadow-lg rounded-lg p-5 flex w-full h-[200px] items-center"
             >
-              {/* Single Image */}
               <div className="w-1/4 h-full overflow-hidden rounded-lg" style={{ boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px' }}>
                 <img
                   src={help.gallery}
@@ -50,13 +50,11 @@ const AllHelps = () => {
                 />
               </div>
 
-              {/* Help Details */}
               <div className="w-2/4 p-4">
                 <h5 className="text-lg font-semibold">{help.description}</h5>
                 <p className="text-gray-600 mt-2">{help.location}</p>
               </div>
 
-              {/* Actions */}
               <div className="w-1/4 flex justify-center">
                 <button style={{ boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px' }}
                   onClick={() => navigate(`/help-details`)}

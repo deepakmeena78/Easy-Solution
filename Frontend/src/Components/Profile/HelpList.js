@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { FaMapMarkerAlt, FaExclamationTriangle } from "react-icons/fa";
 import SliderProfile from "./SliderProfile";
+import { useNavigate } from "react-router-dom";
 
 function HelpList() {
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -66,7 +68,7 @@ function HelpList() {
 
                     {/* Add Product Button */}
                     <div className="mt-6">
-                        <button className="border border-green-500 text-green-600 px-4 py-2 rounded-lg hover:bg-green-100 flex items-center">
+                        <button onClick={()=>navigate("/create-help")} className="border border-green-500 text-green-600 px-4 py-2 rounded-lg hover:bg-green-100 flex items-center">
                             Add Help <FaExclamationTriangle className="ml-2" />
                         </button>
                     </div>

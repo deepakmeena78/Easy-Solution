@@ -24,6 +24,7 @@ const Routing = () => {
       <Route path="/login" element={<SignIn />} />
       <Route path="/category" element={<CategoryPage />} />
 
+
       {/* Protected Routes */}
       <Route path="/account/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
       <Route path="/account/profile" element={<ProtectedRoute element={<Profile />} />} />
