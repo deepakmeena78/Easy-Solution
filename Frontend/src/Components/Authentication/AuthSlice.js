@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
-const TOKEN_KEY = process.env.NEXT_PUBLIC_COOKIE_PREFIX || "scrapify";
+const TOKEN_KEY = process.env.REACT_APP_COOKIE_PREFIX || "easy_solution";
 
 const initialState = {
     user: null,
@@ -11,7 +11,7 @@ const initialState = {
 
 const AuthSlice = createSlice({
     name: "auth",
-    initialState,
+    initialState, 
     reducers: {
         login(state, action) {
             state.token = action.payload.token;
@@ -31,3 +31,4 @@ const AuthSlice = createSlice({
 
 export const { login, logout, setUser } = AuthSlice.actions;
 export default AuthSlice.reducer;
+ 

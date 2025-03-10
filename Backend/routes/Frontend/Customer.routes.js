@@ -17,7 +17,7 @@ route.post(
     SignUp
 );
 
-
+ 
 route.post("/verify",                                                                        // OTP Verify
     body("email", "Invalid email address.").isEmail(),
     body("email", "Email is Required").notEmpty(),

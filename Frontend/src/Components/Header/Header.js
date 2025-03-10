@@ -1,15 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileDropdown from "./ProfileDropDown";
 import SearchBar from "./SearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import "../../App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../Authentication/AuthSlice";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+const TOKEN_KEY = process.env.REACT_APP_COOKIE_PREFIX || "easy_solution";
 
 const Header = () => {
-  const Navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const savedToken = Cookies.get(TOKEN_KEY);
+    if (savedToken) {
+      dispatch(setUser(jwtDecode(savedToken)));
+    }
+  }, [dispatch]);
 
-  const Signup = () => {
-    Navigate("/sign-up");
+  const navigate = useNavigate();
+  const login = () => {
+    navigate("/login");
   }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,11 +43,9 @@ const Header = () => {
               />
             </Link>
           </div>
+         
           <SearchBar />
           <div>
-            <button onClick={Signup} className="mr-5 bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded-full">
-              Login
-            </button>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -43,6 +54,7 @@ const Header = () => {
               className="block md:hidden focus:outline-none"
               aria-label="Toggle menu"
             >
+              
               <svg
                 className="w-8 h-8 text-gray-700"
                 xmlns="http://www.w3.org/2000/svg"
@@ -58,8 +70,9 @@ const Header = () => {
                 />
               </svg>
             </button>
-
-            {"5" === "5" ? <ProfileDropdown /> : "<Login />"}
+            {user ? <ProfileDropdown /> : <button onClick={login} className="mr-5 bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded-full">
+              Login
+            </button>}
           </div>
         </div>
 
@@ -157,7 +170,7 @@ const Header = () => {
             to="/pages/products"
             className="text-gray-700 hover:text-relatedWhite border-2 border-transparent hover:bg-darkColor  rounded-lg transition-all duration-300 ease-in-out px-4 py-1"
           >
-            Product
+            Product 
           </Link>
 
           <div className="flex items-center ml-3">

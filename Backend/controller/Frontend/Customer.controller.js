@@ -21,12 +21,15 @@ export const GetCustomer = async (req, res) => {
 
 export const SignUp = async (req, res) => {
     try {
+
+        console.log('============Sign up ',req.body);
+        
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ msg: "Validation Error", errors: errors.array() });
         }
 
-        let { name, email, password } = req.body;
+        let { name, email, password,mobile } = req.body;
         const salt = bcrypt.genSaltSync(10);
         password = bcrypt.hashSync(password, salt);
 
@@ -39,7 +42,7 @@ export const SignUp = async (req, res) => {
             return res.status(400).json({ msg: "User already exists with this email" });
         }
 
-        const newUser = new Customer({ name, email, password, otp });
+        const newUser = new Customer({ name, email, password, otp,mobile });
         await newUser.save();
 
         let data = {
@@ -50,10 +53,8 @@ export const SignUp = async (req, res) => {
             email: newUser.email,
             subject: "Send OTP Jaldi",
         };
-
         const templateData = new Templete().getOtpTemplete(data);
         helper.sendMail(data, templateData);
-
         return res.status(200).json({ msg: "Signup Successful", user: newUser });
     } catch (error) {
         console.error("Signup Error:", error);
@@ -75,14 +76,15 @@ export const verifyOtp = async (req, res) => {
             if (otp === OTP) {
                 let token = new Token();
                 let tokenObj = {
-                    id: result._id,
+                    _id: result._id,
                     name: result.name,
                     email: result.email,
                     mobile: result.mobile,
                 }
                 let data = token.tokenGanrate(tokenObj);
-                res.cookie("costomer", data);
-                return res.status(200).json({ msg: "Sign-In Successfully : " });
+                // res.cookie(process.env.COOKIE_PREFIX || 'easy_solution', data);
+                // res.json({ success: true, message: "Cookie set" });
+                return res.status(200).json({ msg: "verify Successfully : " , token:data});
             }
             return res.status(401).json({ msg: "WRONG OTP" });
         }
@@ -90,11 +92,14 @@ export const verifyOtp = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ msg: "ERROR OTP Verify" });
     }
-}
-
+}   
+ 
 
 export const SignIn = async (req, res) => {
     try {
+
+        console.log('===================>>>>Login',req.body);
+        
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -106,14 +111,14 @@ export const SignIn = async (req, res) => {
             if (status) {
                 let token = new Token();
                 let tokenObj = {
-                    id: result._id,
+                    _id: result._id,
                     name: result.name,
                     email: result.email,
                     mobile: result.mobile,
                 }
                 let data = token.tokenGanrate(tokenObj);
-                res.cookie("costomer", data);
-                return res.status(200).json({ msg: "Sign-In Successfully : " });
+                // res.cookie("costomer", data);
+                return res.status(200).json({ msg: "Sign-In Successfully : ",token:data });
             }
             return res.status(401).json({ msg: "Invalid Password" });
         } else {

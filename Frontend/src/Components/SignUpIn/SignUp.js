@@ -1,17 +1,22 @@
 import { React, useRef, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import "../../App.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import Google from "./Google";
 import axios from "axios";
+import OtpModal from "../Authentication/OtpModal";
 
 
 const SignUp = () => {
+
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    mobile:'',
   });
 
   const [errors, setErrors] = useState({});
@@ -28,7 +33,6 @@ const SignUp = () => {
     if (field === "password" && (value.length < 6 || value.length > 10)) {
       errorMsg = "Password must be 6-10 characters long!";
     }
-
     setErrors((prevErrors) => ({ ...prevErrors, [field]: errorMsg }));
   };
 
@@ -49,7 +53,14 @@ const SignUp = () => {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const mobileRef = useRef(null);
 
+
+  const handleOtpVerification = () => {
+    toast.success("Otp varification success");
+    setIsModalOpen(false);
+    navigate("/");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,6 +69,7 @@ const SignUp = () => {
       name: nameRef.current.value,
       password: passwordRef.current.value,
       email: emailRef.current.value,
+      mobile:mobileRef.current.value,
     };
 
     Object.keys(formData).forEach((field) => validate(field, formData[field]));
@@ -68,20 +80,19 @@ const SignUp = () => {
 
     try {
       const response = await axios.post("http://localhost:3200/customer/sign-up", formData);
-      console.log("Server Response:", response.data ? alert("Signup successful!") : console.log(response.data));
-
       if (response.status === 200) {
-        toast.success("Login successful!");
+        setIsModalOpen(true)
+        toast.success("Verify Your Email");
       } else {
-        toast.error("Login failed!");
+        toast.error("Sign up failed!");
       }
     } catch (error) {
+      toast.error("Sign up failed!");
       console.error("Error:", error);
     }
   };
 
   return (<>
-    <Toaster />
     <div className="flex items-center justify-center min-h-screen bg-relatedWhite py-10 px-2">
       <div className="flex flex-col md:flex-row w-full max-w-6xl bg-relatedWhite border border-darkColor rounded-lg shadow-[0px_3px_8px_rgba(0,0,0,0.24)] py-2">
         {/* Left Side (Form) */}
@@ -111,6 +122,17 @@ const SignUp = () => {
               <label htmlFor="email"
                 className="absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-darkColor peer-focus:text-sm">
                 Email
+              </label>
+              <span className="text-red-400 text-sm"></span>
+            </div>
+            <div className="relative w-full mt-4">
+              <input ref={mobileRef} type="text" id="mobile" name="mobile" onChange={handleChange}
+                className="peer w-full px-3 pt-3.5 pb-0.2 border-b border-gray-300 placeholder-transparent focus:outline-none focus:ring-0 focus:border-darkColor text-black"
+                placeholder="mobile" />
+              <p style={{ color: "red" }}>{errors.mobile}</p>
+              <label htmlFor="mobile"
+                className="absolute left-3 top-0 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-darkColor peer-focus:text-sm">
+                Mobile
               </label>
               <span className="text-red-400 text-sm"></span>
             </div>
@@ -158,8 +180,9 @@ const SignUp = () => {
         </div>
       </div>
     </div>
+    <OtpModal data={formData} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onVerify={handleOtpVerification} />
   </>
   );
 };
-
+ 
 export default SignUp;
